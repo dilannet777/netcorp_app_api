@@ -12,7 +12,7 @@ The use of Repository Pattern has many benefits, below is a list of the most imp
     * A lower chance for making programming errors
 
 
-**Prerequisites:** PHP, Composer, MySQL
+**Prerequisites:** PHP 7.4, Composer, MySQL
 
 
 ### Getting Started
