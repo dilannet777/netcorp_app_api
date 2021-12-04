@@ -29,12 +29,15 @@ git clone https://github.com/dilannet777/netcorp_app_api.git netcorp_api
 
 Create the database and user for the project:
 
+Mysql Dump [https://github.com/dilannet777/netcorp_app_api/database/datasqls/netcorp_db.sql]
+
 ```
 mysql -u root -p
 CREATE DATABASE netcorp_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE USER 'netcorp_user'@'localhost' identified by 'netcorp_password';
 GRANT ALL on netcorp_db.* to 'netcorp_user'@'localhost';
 quit;
+mysql -u -p netcorp_db < netcorp_db.sql
 ```
 
 Copy and edit the `.env` file and enter your database details:
