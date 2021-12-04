@@ -84,7 +84,7 @@ curl --location --request POST 'http://127.0.0.1:8000/api/vehicle/logcount/82' \
 --form 'page_count="5"'
 ```
 
-Show Vehicle Last Log Infomation
+Show Vehicle Last Log Information
 ```
 curl --location --request GET 'http://127.0.0.1:8000/api/vehicle/lastlog/82' \
 --header 'Authorization: Bearer 25|VDrX4eza53atcuSS4QJYEonYLFRdAvz2bhsIcL9w' \
