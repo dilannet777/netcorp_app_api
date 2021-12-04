@@ -20,8 +20,9 @@ The use of Repository Pattern has many benefits, below is a list of the most imp
 Clone this project using the following commands:
 
 ```
-git clone https://github.com/dilannet777/report_tool_api.git
-cd report_tool_api
+mkdir netcorp_api
+git clone https://github.com/dilannet777/netcorp_app_api.git netcorp_api
+
 ```
 
 ### Configure the application
@@ -51,24 +52,42 @@ php artisan serve
 
 ```
 
-
 ### Run the apis via curl
 
-Report - 7 Days Turnover Per Brand
+Create User
 ```
-curl --location --request POST 'http://127.0.0.1:8000/api/reports/turnover' \
---header 'Accept: application/json' \
---header 'Content-Type: application/json' \
---data-raw '{"type":"brand"}'
+curl --location --request POST 'http://127.0.0.1:8000/api/register' \
+--form 'name="Dilan Withanachchi"' \
+--form 'email="test@mailinator.com"' \
+--form 'password="1qaz2wsx"' \
+--form 'password_confirmation="1qaz2wsx"'
 ```
-Report - 7 Days Turnover Per Day
+Login User
 ```
-curl --location --request POST 'http://127.0.0.1:8000/api/reports/turnover' \
---header 'Accept: application/json' \
---header 'Content-Type: application/json' \
---data-raw '{"type":"daily"}'
+curl --location --request POST 'http://127.0.0.1:8000/api/login' \
+--form 'email="test@mailinator.com"' \
+--form 'password="1qaz2wsx"''
 ```
 
-After that, you should see the client app execute some API requests and dump the output.
+Active Vehicle List
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/vehicles?page_count=10' \
+--header 'Authorization: Bearer 25|VDrX4eza53atcuSS4QJYEonYLFRdAvz2bhsIcL9w' \
+--header 'Accept: application/json'
+```
 
+Show Vehicle Log Count
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/vehicle/logcount/82' \
+--header 'Authorization: Bearer 25|VDrX4eza53atcuSS4QJYEonYLFRdAvz2bhsIcL9w' \
+--header 'Accept: application/json' \
+--form 'page_count="5"'
+```
+
+Show Vehicle Last Log Infomation
+```
+curl --location --request GET 'http://127.0.0.1:8000/api/vehicle/lastlog/82' \
+--header 'Authorization: Bearer 25|VDrX4eza53atcuSS4QJYEonYLFRdAvz2bhsIcL9w' \
+--header 'Accept: application/json'
+```
 
