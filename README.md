@@ -1,66 +1,96 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Build a REST API  for Netcorp Developer Test Project
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This example shows how to build the industry level REST APIs using Laravel Repository Pattern.
 
-## About Laravel
+This design patern appliable to any application based on MVC.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The use of Repository Pattern has many benefits, below is a list of the most important ones:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    * Centralization of the data access logic makes code easier to maintain
+    * Business and data access logic can be tested separately
+    * Reduces duplication of code
+    * A lower chance for making programming errors
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+**Prerequisites:** PHP 7.4, Composer, MySQL
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Getting Started
 
-## Laravel Sponsors
+Clone this project using the following commands:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+mkdir netcorp_api
+git clone https://github.com/dilannet777/netcorp_app_api.git netcorp_api
 
-### Premium Partners
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+### Configure the application
 
-## Contributing
+Create the database and user for the project:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Mysql Dump [https://github.com/dilannet777/netcorp_app_api/database/datasqls/netcorp_db.sql]
 
-## Code of Conduct
+```
+mysql -u root -p
+CREATE DATABASE netcorp_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'netcorp_user'@'localhost' identified by 'netcorp_password';
+GRANT ALL on netcorp_db.* to 'netcorp_user'@'localhost';
+quit;
+mysql -u -p netcorp_db < netcorp_db.sql
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Copy and edit the `.env` file and enter your database details:
 
-## Security Vulnerabilities
+```
+cp .env.example .env
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Install the project dependencies and start the PHP server:
 
-## License
+```
+composer install
+php artisan config:cache
+php artisan serve
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+
+### Run the apis via curl
+
+Create User
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/register' \
+--form 'name="Dilan Withanachchi"' \
+--form 'email="test@mailinator.com"' \
+--form 'password="1qaz2wsx"' \
+--form 'password_confirmation="1qaz2wsx"'
+```
+Login User
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/login' \
+--form 'email="test@mailinator.com"' \
+--form 'password="1qaz2wsx"''
+```
+
+Active Vehicle List
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/vehicles?page_count=10' \
+--header 'Authorization: Bearer 25|VDrX4eza53atcuSS4QJYEonYLFRdAvz2bhsIcL9w' \
+--header 'Accept: application/json'
+```
+
+Show Vehicle Log Count
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/vehicle/logcount/82' \
+--header 'Authorization: Bearer 25|VDrX4eza53atcuSS4QJYEonYLFRdAvz2bhsIcL9w' \
+--header 'Accept: application/json' \
+--form 'page_count="5"'
+```
+
+Show Vehicle Last Log Information
+```
+curl --location --request GET 'http://127.0.0.1:8000/api/vehicle/lastlog/82' \
+--header 'Authorization: Bearer 25|VDrX4eza53atcuSS4QJYEonYLFRdAvz2bhsIcL9w' \
+--header 'Accept: application/json'
+```
+
