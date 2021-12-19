@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
 use Laravel\Sanctum\HasApiTokens;
-use App\Http\Traits\DateTimeTrait;
+use App\Traits\DateTimeTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Auth;
